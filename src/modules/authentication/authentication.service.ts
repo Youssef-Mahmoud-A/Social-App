@@ -1,16 +1,17 @@
-import { Model } from "mongoose";
 import { SignupDto } from "./dto/authentication.dto";
-import { IUser } from "../../common/interface";
-import { HUser, UserModel } from "../../DB/Model";
 import { ConflictException } from "../../common/exception";
 import { UserRepository } from "../../common/repository";
+import { cacheService, CacheServie } from "../../common/service";
+import { encryption, hash } from "../../common/security";
 
 
 
 
 export class AuthenticationService {
     private userRepository: UserRepository
+    private cacheService: CacheServie
     constructor() {
+        this.cacheService = cacheService
         this.userRepository = new UserRepository()
     }
 
@@ -25,7 +26,12 @@ export class AuthenticationService {
             throw new ConflictException("Email Exists!!")
         }
         const account = await this.userRepository.createOne({
-            data: { email, password, phone, username },
+            data: {
+                email,
+                password: await hash(password),
+                phone: await encryption(phone),
+                username
+            },
             options: { validateBeforeSave: true }
 
 
