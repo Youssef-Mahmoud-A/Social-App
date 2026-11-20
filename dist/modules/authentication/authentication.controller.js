@@ -45,4 +45,19 @@ router.post("/signup", (0, index_1.validation)(validators.signup), (0, index_1.r
     const data = await authentication_service_1.default.signup(req.validate.body);
     return { status: 201, data };
 }));
+router.post("/forgot-password-request", (0, index_1.validation)(validators.forgotPasswordRequest), (0, index_1.responseFormatter)(async (req, res, next) => {
+    await authentication_service_1.default.forgotPasswordRequest(req.body);
+}));
+router.post("/confirm-forgot-password", (0, index_1.validation)(validators.confirmForgotPassword), (0, index_1.responseFormatter)(async (req, res, next) => {
+    await authentication_service_1.default.confirmForgotPassword(req.body);
+}));
+router.patch("/reset-password", (0, index_1.validation)(validators.resetPassword), (0, index_1.responseFormatter)(async (req, res, next) => {
+    await authentication_service_1.default.resetPassword(req.body);
+}));
+router.patch("/confirm-email", (0, index_1.validation)(validators.confirmEmail), (0, index_1.responseFormatter)(async (req, res, next) => {
+    await authentication_service_1.default.confirmEmail(req.body);
+}));
+router.patch("/resend-confirm-email", (0, index_1.validation)(validators.resendConfirmEmail), (0, index_1.responseFormatter)(async (req, res, next) => {
+    await authentication_service_1.default.resendConfirmEmail(req.body);
+}));
 exports.default = router;

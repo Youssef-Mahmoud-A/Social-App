@@ -3,6 +3,8 @@ import { authenticationController } from './modules';
 import { globalErrorHandling } from './middleware';
 import { PORT } from './config';
 import { bootstrapDB } from './DB/connection.db';
+import { sendEmail } from './common/utils/email';
+import { EmailSubjectEnum } from './common/enum';
 
 
 const app: express.Application = express()
@@ -15,5 +17,5 @@ app.all("/", (req: express.Request, res: express.Response, next: express.NextFun
 
 app.use("/auth", authenticationController)
 app.use(globalErrorHandling)
-
+// sendEmail({subject:EmailSubjectEnum.CONFIRM_EMAIL, to:["youniesmahmoud8@gmail.com"], html:"Testing"})
 

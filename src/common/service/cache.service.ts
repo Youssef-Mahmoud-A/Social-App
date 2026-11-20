@@ -46,7 +46,7 @@ export class CacheServie {
         return await this.set({ key, value, ttl })
     }
 
-    async del({ key }: { key: string }) {
+    async del({ key }: { key: string | string[] }) {
         return await this.client.del(key)
     }
 
